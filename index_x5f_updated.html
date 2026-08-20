@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashTools.pk - Free SHA256 Generator, Password Generator & More</title>
+    <meta name="description" content="Free online tools - SHA256 Generator, Strong Password Generator, Binary Converter, Word Counter. 100% free and secure.">
+    <style>
+        body{font-family:system-ui,sans-serif;margin:0;background:#f8fafc;color:#1e293b;line-height:1.6}
+        header{background:#0f172a;color:white;padding:15px 20px;display:flex;justify-content:space-between;align-items:center}
+        header b{font-size:20px}
+        .container{max-width:900px;margin:auto;padding:20px}
+        .ad-box{border:2px dashed #94a3b8;background:#e2e8f0;padding:20px;text-align:center;margin:20px 0;border-radius:8px;color:#64748b;font-weight:bold}
+        .tool-card{background:white;border-radius:12px;padding:20px;margin:20px 0;box-shadow:0 4px 6px rgba(0,0,0,0.05);border:1px solid #e2e8f0}
+        .tool-card h2{margin-top:0;color:#0f172a}
+        input,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;box-sizing:border-box;margin:10px 0}
+        button{background:#0f172a;color:white;border:none;padding:12px 20px;border-radius:8px;cursor:pointer;font-weight:bold;width:100%}
+        button:hover{background:#1e293b}
+        .output{background:#0f172a;color:#22c55e;padding:15px;border-radius:8px;word-break:break-all;font-family:monospace;margin-top:10px;min-height:20px}
+        footer{background:#0f172a;color:#94a3b8;padding:30px 20px;text-align:center;margin-top:40px}
+        footer a{color:#e2e8f0;margin:0 10px;text-decoration:none}
+        footer a:hover{text-decoration:underline}
+    </style>
+    <!-- Google AdSense Code will go here - Paste after approval -->
+</head>
+<body>
+<header><b>HashTools.pk</b><span>100% Free Tools</span></header>
+
+<div class="container">
+    <div class="ad-box">Google Ad Here - Your Earning Spot 1 (Top Ad)</div>
+
+    <div class="tool-card">
+        <h2>🔐 SHA256 Generator</h2>
+        <p>Enter any text to get its SHA256 hash instantly.</p>
+        <input id="shaInput" placeholder="Type anything... e.g. Rana Hamza" value="Rana Hamza" oninput="genHash()">
+        <div class="output" id="shaOutput"></div>
+        <button onclick="copyHash()">Copy Hash</button>
+    </div>
+
+    <div class="ad-box">Google Ad Here - Your Earning Spot 2 (Middle Ad)</div>
+
+    <div class="tool-card">
+        <h2>🔑 Strong Password Generator</h2>
+        <div class="output" id="passOutput" style="color:#38bdf8">Click Generate</div>
+        <button onclick="genPass()">Generate Strong Password</button>
+    </div>
+
+    <div class="tool-card">
+        <h2>💻 Text to Binary Converter</h2>
+        <input id="binInput" placeholder="Type text..." oninput="textToBin()">
+        <div class="output" id="binOutput" style="color:#fbbf24"></div>
+    </div>
+
+    <div class="tool-card">
+        <h2>📝 Word Counter</h2>
+        <textarea id="wordInput" rows="4" placeholder="Paste your text here..." oninput="countWords()"></textarea>
+        <p id="wordCount">Words: 0 | Characters: 0</p>
+    </div>
+
+    <div class="ad-box">Google Ad Here - Your Earning Spot 3 (Bottom Ad)</div>
+
+    <div class="tool-card">
+        <h2>What is SHA256?</h2>
+        <p>SHA256 is a secure hashing algorithm that converts any text into a fixed 64-character code. It is used in Bitcoin, blockchain and password security. Even a small change in text creates a completely different hash. Try it above!</p>
+    </div>
+</div>
+
+<footer>
+    <p><a href="index.html">Home</a> | <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PHRpdGxlPkFib3V0IFVzIC0gSGFzaFRvb2xzLnBrPC90aXRsZT48bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiPjwvaGVhZD48Ym9keSBzdHlsZT0iZm9udC1mYW1pbHk6c2Fucy1zZXJpZjttYXgtd2lkdGg6ODAwcHg7bWFyZ2luOmF1dG87cGFkZGluZzoyMHB4OyI+PGgxPkFib3V0IFVzPC9oMT48cD5IYXNoVG9vbHMucGsgaXMgYSBmcmVlIG9ubGluZSB0b29scyB3ZWJzaXRlIGNyZWF0ZWQgYnkgUmFuYSBIYW16YSBmcm9tIEZhaXNhbGFiYWQsIFBha2lzdGFuLiBPdXIgbWlzc2lvbiBpcyB0byBwcm92aWRlIHNpbXBsZSwgZmFzdCBhbmQgdXNlZnVsIHRvb2xzIGZvciBzdHVkZW50cywgZGV2ZWxvcGVycyBhbmQgZXZlcnlkYXkgdXNlcnMuPC9wPjxwPldlIHByb3ZpZGUgdG9vbHMgbGlrZSBTSEEyNTYgR2VuZXJhdG9yLCBQYXNzd29yZCBHZW5lcmF0b3IsIEJpbmFyeSBDb252ZXJ0ZXIgYW5kIG1vcmUuIEFsbCB0b29scyBhcmUgMTAwJSBmcmVlIGFuZCB3b3JrIGRpcmVjdGx5IGluIHlvdXIgYnJvd3Nlci4gTm8gZGF0YSBpcyBzdG9yZWQgb24gb3VyIHNlcnZlcnMuPC9wPjxwPkNvbnRhY3Q6IHJhbmFnNzg2dGVjaEBnbWFpbC5jb208L3A+PGEgaHJlZj0iaW5kZXguaHRtbCI+QmFjayB0byBIb21lPC9hPjwvYm9keT48L2h0bWw+Cg==">About Us</a> | <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PHRpdGxlPkNvbnRhY3QgVXMgLSBIYXNoVG9vbHMucGs8L3RpdGxlPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+PC9oZWFkPjxib2R5IHN0eWxlPSJmb250LWZhbWlseTpzYW5zLXNlcmlmO21heC13aWR0aDo4MDBweDttYXJnaW46YXV0bztwYWRkaW5nOjIwcHg7Ij48aDE+Q29udGFjdCBVczwvaDE+PHA+SWYgeW91IGhhdmUgYW55IHF1ZXN0aW9ucywgc3VnZ2VzdGlvbnMgb3IgbmVlZCBhIGN1c3RvbSB0b29sLCBmZWVsIGZyZWUgdG8gY29udGFjdCB1cy48L3A+PHA+PGI+RW1haWw6PC9iPiByYW5hZzc4NnRlY2hAZ21haWwuY29tPGJyPjxiPk5hbWU6PC9iPiBSYW5hIEhhbXphPGJyPjxiPkxvY2F0aW9uOjwvYj4gRmFpc2FsYWJhZCwgUGFraXN0YW48L3A+PHA+V2Ugd2lsbCByZXBseSB3aXRoaW4gMjQgaG91cnMuPC9wPjxhIGhyZWY9ImluZGV4Lmh0bWwiPkJhY2sgdG8gSG9tZTwvYT48L2JvZHk+PC9odG1sPgo=">Contact</a> | <a href="privacy.html">Privacy Policy</a></p>
+    <p>Made with ❤️ by Rana Hamza - Faisalabad, Pakistan<br>© 2026 HashTools.pk - All Rights Free</p>
+</footer>
+
+<script>
+async function genHash(){
+    const text = document.getElementById('shaInput').value;
+    if(!text){document.getElementById('shaOutput').innerText='';return;}
+    const msgBuffer = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+    document.getElementById('shaOutput').innerText=hashHex;
+}
+function copyHash(){navigator.clipboard.writeText(document.getElementById('shaOutput').innerText);alert('Copied!');}
+function genPass(){
+    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    let p="";for(let i=0;i<16;i++)p+=chars.charAt(Math.floor(Math.random()*chars.length));
+    document.getElementById('passOutput').innerText=p;
+}
+function textToBin(){
+    const t=document.getElementById('binInput').value;
+    document.getElementById('binOutput').innerText=t.split('').map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
+}
+function countWords(){
+    const t=document.getElementById('wordInput').value;
+    const w=t.trim()?t.trim().split(/\s+/).length:0;
+    document.getElementById('wordCount').innerText=`Words: ${w} | Characters: ${t.length}`;
+}
+genHash();
+</script>
+</body>
+</html>
